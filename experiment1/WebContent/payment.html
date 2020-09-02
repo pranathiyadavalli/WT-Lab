@@ -2,23 +2,15 @@
 <html>
 <head>
 <title>Payment</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<meta charset = "UTF-8" />
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-
-body {
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -116,6 +108,12 @@ span.price {
     margin-bottom: 20px;
   }
 }
+
+body {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
 .topnav {
   overflow: hidden;
   background-color: #333;
@@ -134,7 +132,9 @@ span.price {
   background-color: #ddd;
   color: black;
 }
-
+:required:focus {
+  box-shadow: 0  0 3px rgba(255,0,0,0.5); 
+}
 .topnav a.active {
   background-color: #4CAF50;
   color: white;
@@ -144,6 +144,105 @@ span.price {
   float: right;
 }
 </style>
+<script>
+function validate() {  
+	
+		var y = document.payment.firstname.value;
+		var letters = /^[a-zA-Z]+ [a-zA-Z]+$/;
+		if (y === null || y.trim() === "" || !(letters.test(y))){
+			alert("Please enter your full name.");
+			return false;
+		} 
+		else {
+			var x = document.payment.email.value;  
+			var atposition = x.indexOf("@");  
+			var dotposition = x.lastIndexOf(".");  
+			if (atposition < 1 || dotposition < atposition+2 || dotposition+2 >= x.length) {  
+				alert("Please enter a valid e-mail address \n");
+				return false;
+			} 
+			else {
+				var z = document.payment.address.value;
+				var ex = /^(\w*\s*[\#\-\,\/\.\(\)\&]*)+/;
+				if (z === null || z.trim() === "" || !(ex.test(z))){
+					alert("Please enter valid address.");
+					return false;
+				} 
+				else {
+					var a = document.payment.city.value;
+					var ex1 = /^[A-Za-z]+$/;
+					if (a === null || a.trim() === "" || !(ex1.test(a))){
+						alert("Please enter valid city.");
+						return false;
+					} 
+					else {
+						var b = document.payment.state.value;
+						var ex2 = /^[A-Za-z]+$/;
+						if (b === null || b.trim() === "" || !(ex2.test(b))){
+							alert("Please enter valid state.");
+							return false;
+						} 
+						else {
+							var c = document.payment.zip.value;
+							var ex3 = /^[1-9][0-9][0-9][0-9][0-9][0-9]$/;
+							if (c === null || c.trim() === "" || !(ex3.test(c))){
+								alert("Please enter valid zipcode.");
+								return false;
+							} 
+							else {
+								var d = document.payment.cardname.value;
+								var letters1 = /^[a-zA-Z]+ [a-zA-Z]+$/;
+								if (d === null || d.trim() === "" || !(letters1.test(d))){
+									alert("Please enter your full name as on card.");
+									return false;
+								} 
+								else {
+									var ex4 = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+									var e = document.payment.cardnumber.value;
+									if (e === null || e.trim() === "" || !(ex4.test(e))){
+										alert("Please enter your card number as on card.");
+										return false;
+									} 
+									else {
+										var months = /(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)/;
+										var f = document.payment.expmonth.value;
+										if (f === null || f.trim() === "" || !(months.test(f))) {
+										    alert("Please enter a valid month");
+										    return false;
+										}
+										else {
+											var g = document.payment.expyear.value;
+											var year = /^20[2-9][0-9]|[2-9][1-9][0-9][0-9]$/;
+											if (g === null || g.trim() === "" || !(year.test(g))) {
+											    alert("Please enter a valid year");
+											    return false;
+											}
+											else {
+												var h = document.payment.cvv.value;
+												var ex5 = /^[0-9][0-9][0-9]$/;
+												if (h === null || h.trim() === "" || !(ex5.test(h))){
+													alert("Please enter valid cvv.");
+													return false;
+												} 
+												else {
+													return true;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+}
+	
+
+
+</script>
+
 </head>
 <body background='bg.jpg'>
 <div class="topnav">
@@ -155,33 +254,33 @@ span.price {
     <a href="home.html">LogOut</a>
   </div>
 </div>
-<h2 align="center">Payment</h2>
-<p></p>
+<h2 style="text-align:center">PAYMENT</h2>
+<br>
 <div class="row">
   <div class="col-75">
     <div class="container">
-      <form action="/action_page.php">
+      <form name="payment" action="/action_page.php" method="post">
       
         <div class="row">
           <div class="col-50">
             <h3>Billing Address</h3>
             <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+            <input type="text" id="fname" name="firstname" placeholder="John M. Doe" required/>
             <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com">
+            <input type="text" id="email" name="email" placeholder="john@example.com" required/>
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street" required/>
             <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="New York">
+            <input type="text" id="city" name="city" placeholder="New York" required />
 
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
-                <input type="text" id="state" name="state" placeholder="NY">
+                <input type="text" id="state" name="state" placeholder="NY" required />
               </div>
               <div class="col-50">
                 <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" placeholder="10001">
+                <input type="text" id="zip" name="zip" placeholder="10001" required />
               </div>
             </div>
           </div>
@@ -196,32 +295,33 @@ span.price {
               <i class="fa fa-cc-discover" style="color:orange;"></i>
             </div>
             <label for="cname">Name on Card</label>
-            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+            <input type="text" id="cname" name="cardname" placeholder="John More Doe" required/>
             <label for="ccnum">Credit card number</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required/>
             <label for="expmonth">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+            <input type="text" id="expmonth" name="expmonth" placeholder="September" required/>
             <div class="row">
               <div class="col-50">
                 <label for="expyear">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2018">
+                <input type="text" id="expyear" name="expyear" placeholder="2018" required/>
               </div>
               <div class="col-50">
                 <label for="cvv">CVV</label>
-                <input type="text" id="cvv" name="cvv" placeholder="352">
+                <input type="text" id="cvv" name="cvv" placeholder="352" required/>
               </div>
             </div>
           </div>
           
         </div>
         <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+          <input type="checkbox" checked="checked" name="sameadr" required="required" /> Shipping address same as billing
         </label>
-        <a class="btn btn-primary" href="order.html" role="button">Confirm Order</a>
+        <a class="btn btn-primary" role="button" onclick="return validate();"  href="order.html">Confirm Order</a>
       </form>
     </div>
   </div>
 </div>
+
 
 </body>
 </html>

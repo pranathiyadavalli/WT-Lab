@@ -6,9 +6,46 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+<script>
+function validate() {  
+	var x = document.login.uname.value;  
+	var atposition = x.indexOf("@");  
+	var dotposition = x.lastIndexOf(".");  
+	if (atposition < 1 || dotposition < atposition+2 || dotposition+2 >= x.length) {  
+		alert("Please enter a valid e-mail address \n");
+		return false;
+	} else { 
+		var decimal=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+		p = document.login.psw.value;
+		var errors = []
+		  if (p.search(/[a-z]/) < 0) {
+		    errors.push("one lowercase letter")
+		  }
+		  if (p.search(/[A-Z]/) < 0) {
+		    errors.push("one uppercase letter")
+		  }
+		  if (p.search(/[0-9]/) < 0) {
+		    errors.push("one digit")
+		  }
+		  if(p.search(/[\!\@\#\$\%\^\&\*\(\)\_\+\.\,\;\:\-]/) < 0) {
+		    errors.push("special character.")
+		  }
+		    
+		  if (errors.length > 0) {
+		    document.getElementById("errors").innerHTML = "Your password must contain at least " + errors.join(", ") + ".";
+		    return false;
+		  }
+		  else { 
+			return true;
+		}
+	} 
+}
+
+
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
+body {font-family: Arial, Helvetica, sans-serif; text-align: center; }
 body {
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -67,7 +104,7 @@ span.psw {
 <br>
 <h2 align="center">LOG IN</h2><br>
 
-<form action="/action_page.php" method="post">
+<form name="login" method="post">
   
   <div class="container" align="center">
     <label for="uname"><b>Username</b></label> <br>
@@ -75,10 +112,10 @@ span.psw {
 
     <label for="psw"><b>Password</b></label><br>
     <input type="password" placeholder="Enter Password" align="center" name="psw" required><br><br>
-    <a class="btn btn-primary" href="profile.html" role="button">LogIn</a>
+    <a class="btn btn-primary" role="button" onclick="return validate();" href="profile.html" >LogIn</a><br><br>
    
   </div>
 </form>
-
+<div class="message" id="errors"></div>
 </body>
 </html>
